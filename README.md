@@ -1,2 +1,2 @@
 # Imitation_Learning
-A project on self driving cars using imitation learning
+A project on imitation learning for self driving cars
