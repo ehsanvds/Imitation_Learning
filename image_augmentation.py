@@ -1,4 +1,5 @@
 """
+Image augmentation for neural network training
 @author: Ehsan
 """
 import numpy as np
@@ -22,6 +23,7 @@ def gaussian_noise(image, noise_lev):
     return noise_img
 
 def img_dropout(image, max_num_reg):
+    # blocking a random portion of image by black rectangles
     image = image[tf.newaxis, ...]
     for i in range(np.random.randint(max_num_reg+1)):
         cords = np.random.random(size=3)
@@ -33,7 +35,6 @@ def img_dropout(image, max_num_reg):
 
 def augment(data):
     image = data['img_input']
-    # image = tf.squeeze(image, axis=[0])
     image = tf.image.random_contrast(image, 0.8, 1.2)                     # changing contrast
     image = tf.image.random_brightness(image, 0.2)                        # changing brightness
     image = tf.image.random_saturation(image, 0.8, 1.2)                   # changing saturation
