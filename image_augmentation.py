@@ -1,14 +1,8 @@
 """
-Imitation Learning for Following a Car
-
 @author: Ehsan
-March 25, 2020
 """
 import numpy as np
-import pandas as pd
 import tensorflow as tf
-import matplotlib.pyplot as plt
-import os
 
 #%% Image Augmentation
 def gaussian_blur(image, kernel_size, sigma=3):
