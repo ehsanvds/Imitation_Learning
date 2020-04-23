@@ -1,15 +1,12 @@
 """
-Imitation Learning for Following a Car
-
+General functions to be used in imitation learning project
 @author: Ehsan
 """
-import numpy as np
+
 import pandas as pd
 import tensorflow as tf
 import matplotlib.pyplot as plt
 import os
-
-
 
 #%% Other Functions
 def filelist(path, ext):
