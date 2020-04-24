@@ -6,6 +6,7 @@ import numpy as np
 import tensorflow as tf
 
 #%% Image Augmentation
+# Adding Gaussian blur
 def gaussian_blur(image, kernel_size, sigma=3):
     ax = tf.range(-kernel_size//2+1, kernel_size//2+1)
     x, y = tf.meshgrid(ax, ax)
@@ -16,14 +17,15 @@ def gaussian_blur(image, kernel_size, sigma=3):
     return tf.nn.depthwise_conv2d(image[tf.newaxis, ...], gaussian_kernel, [1, 1, 1, 1],
                                   padding='SAME', data_format='NHWC')
 
+# Adding Gaussain noise
 def gaussian_noise(image, noise_lev):
     noise = tf.random.normal(tf.shape(image), mean=0, stddev=noise_lev)
     noise_img = image + noise
     noise_img = tf.clip_by_value(noise_img, 0, 1)
     return noise_img
 
+# Blocking a random portion of the image by black rectangles
 def img_dropout(image, max_num_reg):
-    # blocking a random portion of image by black rectangles
     image = image[tf.newaxis, ...]
     for i in range(np.random.randint(max_num_reg+1)):
         cords = np.random.random(size=3)
@@ -33,6 +35,7 @@ def img_dropout(image, max_num_reg):
         image = tf.image.draw_bounding_boxes(image, boxes, colors=[[0,0,0,1]])
     return image
 
+# Pefroming image augmentation
 def augment(data):
     image = data['img_input']
     image = tf.image.random_contrast(image, 0.8, 1.2)                     # changing contrast
