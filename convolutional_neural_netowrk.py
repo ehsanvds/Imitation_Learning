@@ -2,11 +2,7 @@
 The neural network for imitation Learning
 @author: Ehsan
 """
-import numpy as np
-import pandas as pd
 import tensorflow as tf
-import matplotlib.pyplot as plt
-import os
 
 #%% Netwrok
 def conv_block(x, n_filters, krl_size, stride, drop_rate):
