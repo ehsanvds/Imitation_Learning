@@ -7,23 +7,16 @@ import pandas as pd
 import tensorflow as tf
 import os
 
-#%% set parameters
-measure_path = r'D:\OneDrive\Shared\Imitation Learning\Session_4\All_measurements_truncated.csv'
-image_dir = r'D:\OneDrive\Shared\Imitation Learning\Session_4\images'
-weights_path = r'D:\OneDrive\Shared\Imitation Learning\model_weights.ckpt'
-save_path = r'D:\OneDrive\Shared\Imitation Learning\whole_model.h5'
+#%% set parameters (check the input path)
+measure_path = r'...\All_measurements_truncated.csv'
+image_dir = r'...\images'
 ext = '.png'
-des_img_size = [88,200]
-n_msr_param = 4
-cat_columns = ['throttle_fl', 'brake_fl']
-batch_size = 100
+n_msr_param = 4 # number of parameters for the measurements
+cat_columns = ['throttle_fl', 'brake_fl'] # categorical columns in the measurements
 
 #%% Main
 if __name__=='__main__':
-    # available device
-    print('Available GPUs:', tf.config.experimental.list_physical_devices('GPU'))
-    
-    # reading images
+    # reading the images
     print('Reading images ...')
     input_images = []
     files = filelist(image_dir, ext)
@@ -32,7 +25,7 @@ if __name__=='__main__':
     input_images = tf.convert_to_tensor(input_images, dtype=tf.float32)
     # visualize(image, augm_img)
     
-    # reading measurements
+    # reading the measurements
     print('Reading measurements ...')
     df_measure = pd.read_csv(measure_path, index_col=None, header='infer')
     df_measure = normalize(df_measure,cat_columns)
@@ -43,7 +36,7 @@ if __name__=='__main__':
     input_measure = df_measure.iloc[:,3:]
     input_measure = tf.convert_to_tensor(input_measure.values, dtype=tf.float32)
     
-    # model
+    # building the model
     print('Building the model ...')
     img_input = tf.keras.Input(shape=tuple(np.array(tf.shape(input_images[0]))), name='img_input')
     msr_input = tf.keras.Input(shape=(n_msr_param,), name='msr_input')
