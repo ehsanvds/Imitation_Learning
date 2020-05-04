@@ -18,6 +18,9 @@ cat_columns = ['throttle_fl', 'brake_fl'] # categorical columns in the measureme
 
 #%% Main
 if __name__=='__main__':
+    # available device
+    print('Available GPUs:', tf.config.experimental.list_physical_devices('GPU'))
+    
     # reading the images
     print('Reading images ...')
     input_images = []
