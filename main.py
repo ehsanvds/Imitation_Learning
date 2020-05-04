@@ -47,3 +47,21 @@ if __name__=='__main__':
     model.compile(optimizer=tf.keras.optimizers.Adam(learning_rate=0.0002),
                   loss='mean_squared_error', metrics=['accuracy'])
     print(model.summary())
+
+    # creating a callback
+    callback = tf.keras.callbacks.ModelCheckpoint(filepath=weights_path,
+                     save_weights_only=True, verbose=1)
+    
+    # training
+    print('Training the model ...')
+    # should use gast 0.2.2: pip install gast==0.2.2
+    input_db = tf.data.Dataset.from_tensor_slices({'img_input':input_images,
+                                                   'msr_input':input_measure})
+    augm_input_db = (input_db.map(augment, num_parallel_calls=tf.data.experimental.AUTOTUNE))
+    control_db = tf.data.Dataset.from_tensor_slices(control_output)
+    dataset = tf.data.Dataset.zip((augm_input_db,control_db)).batch(batch_size).prefetch(tf.data.experimental.AUTOTUNE)
+    model.fit(dataset, epochs=8, callbacks=[callback])
+              
+    # saving the whole model
+    print('Saving the model ...')
+    model.save(save_path)
