@@ -6,11 +6,13 @@ import numpy as np
 import pandas as pd
 import tensorflow as tf
 import os
+import general_functions
+import network_functions
 
 #%% set parameters (check the input path)
 measure_path = r'...\All_measurements_truncated.csv'
 image_dir = r'...\images'
-ext = '.png'
+ext = '.png' # extension format of images
 n_msr_param = 4 # number of parameters for the measurements
 cat_columns = ['throttle_fl', 'brake_fl'] # categorical columns in the measurements
 
