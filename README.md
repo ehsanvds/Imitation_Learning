@@ -1,5 +1,5 @@
 # Imitation Learning
-This project aims to biuld a model for self driving cars based on immitation learning. A new set of data is collected from CARLA driving simulator. The neural network and procedure is based on a paper about conditional immitation learning by Codevilla et al. (2018).
+This project aims to biuld a model for self driving cars based on immitation learning using TensorFlow 2. A new set of data was collected from CARLA driving simulator. The neural network and procedure is based on a paper about conditional immitation learning by Codevilla et al. (2018).
 
 ### Files
 - general_functions: various functions for reading files and visualization
