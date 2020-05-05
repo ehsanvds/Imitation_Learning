@@ -22,7 +22,7 @@ if __name__=='__main__':
     print('Available GPUs:', tf.config.experimental.list_physical_devices('GPU'))
     
     # reading the images
-    print('Reading images ...')
+    print('Reading the images ...')
     input_images = []
     files = filelist(image_dir, ext)
     for k in files:
@@ -31,7 +31,7 @@ if __name__=='__main__':
     # visualize(image, augm_img)
     
     # reading the measurements
-    print('Reading measurements ...')
+    print('Reading the measurements ...')
     df_measure = pd.read_csv(measure_path, index_col=None, header='infer')
     df_measure = normalize(df_measure,cat_columns)
     for i in cat_columns:
@@ -57,7 +57,7 @@ if __name__=='__main__':
     
     # training
     print('Training the model ...')
-    # should use gast 0.2.2: pip install gast==0.2.2
+    # Pleas make sure to use gast 0.2.2
     input_db = tf.data.Dataset.from_tensor_slices({'img_input':input_images,
                                                    'msr_input':input_measure})
     augm_input_db = (input_db.map(augment, num_parallel_calls=tf.data.experimental.AUTOTUNE))
