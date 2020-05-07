@@ -9,9 +9,11 @@ import os
 import general_functions
 import network_functions
 
-#%% set parameters (check the input path)
+#%% set parameters
 measure_path = r'...\All_measurements_truncated.csv'
 image_dir = r'...\images'
+weights_path = r'...\model_weights.ckpt'
+save_path = r'...\whole_model.h5'
 ext = '.png' # extension format of images
 n_msr_param = 4 # number of parameters for the measurements
 cat_columns = ['throttle_fl', 'brake_fl'] # categorical columns in the measurements
@@ -58,8 +60,7 @@ if __name__=='__main__':
     # training
     print('Training the model ...')
     # Pleas make sure to use gast 0.2.2
-    input_db = tf.data.Dataset.from_tensor_slices({'img_input':input_images,
-                                                   'msr_input':input_measure})
+    input_db = tf.data.Dataset.from_tensor_slices({'img_input':input_images, 'msr_input':input_measure})
     augm_input_db = (input_db.map(augment, num_parallel_calls=tf.data.experimental.AUTOTUNE))
     control_db = tf.data.Dataset.from_tensor_slices(control_output)
     dataset = tf.data.Dataset.zip((augm_input_db,control_db)).batch(batch_size).prefetch(tf.data.experimental.AUTOTUNE)
