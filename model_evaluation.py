@@ -5,18 +5,13 @@ Evaluating the Imitation Learning Model
 import pandas as pd
 import tensorflow as tf
 import os
+from general_functions import filelist
 
 model_path = r'...\whole_model.h5'
 measure_path = r'...\All_measurements_truncated.csv'
 image_dir = r'...\images'
 des_img_size = [88,200]
 cat_columns = ['throttle_fl', 'brake_fl']
-
-def filelist(path, ext):
-    from os import listdir
-    file = [f for f in listdir(path) if f.endswith(ext)]
-    file.sort()
-    return file
 
 def augment(image):
     image = tf.image.convert_image_dtype(image, tf.float32)               # converting and scaling to [0,1]
