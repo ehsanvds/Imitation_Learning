@@ -6,9 +6,9 @@ import pandas as pd
 import tensorflow as tf
 import os
 
-model_path = r'D:\OneDrive\Shared\Imitation Learning\whole_model.h5'
-measure_path = r'D:\OneDrive\Shared\Imitation Learning\Session_4\All_measurements_truncated.csv'
-image_dir = r'D:\OneDrive\Shared\Imitation Learning\Session_4\images'
+model_path = r'...\whole_model.h5'
+measure_path = r'...\All_measurements_truncated.csv'
+image_dir = r'...\images'
 des_img_size = [88,200]
 cat_columns = ['throttle_fl', 'brake_fl']
 
