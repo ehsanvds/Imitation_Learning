@@ -1,8 +1,6 @@
 """
 Evaluating the Imitation Learning Model
-
 @author: Ehsan
-March 28, 2020
 """
 import pandas as pd
 import tensorflow as tf
@@ -33,28 +31,3 @@ def normalize(df,cat_columns):
     df = (df - df.mean()) / df.std()
     df = pd.concat([df_cat, df], axis=1)
     return df
-
-# reading images
-input_images = []
-files = filelist(image_dir, ext='.png')
-for k in files:
-    img_string=tf.io.read_file(os.path.join(image_dir,k))
-    image=tf.io.decode_image(img_string, channels=3)
-    augm_img = augment(image)
-    input_images.append(augm_img)
-
-# reading measurements
-df_measure = pd.read_csv(measure_path, index_col=None, header='infer')
-df_measure = normalize(df_measure,cat_columns)
-for i in cat_columns:
-    df_measure[i] = pd.Categorical(df_measure[i])
-control_output = df_measure.iloc[:,0:3]
-control_output = tf.convert_to_tensor(control_output.values, dtype=tf.float32)
-input_measure = df_measure.iloc[:,3:]
-input_measure = tf.convert_to_tensor(input_measure.values, dtype=tf.float32)
-
-# loading the model
-model = tf.keras.models.load_model(model_path)
-
-# evaluating the model with current data
-loss, acc = model.evaluate([input_images, input_measure], control_output, verbose=1)
