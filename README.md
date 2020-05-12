@@ -6,6 +6,7 @@ This project aims to biuld a model for self driving cars based on immitation lea
 - image_augmentation: the functions for generating augmented images
 - network: the functions for constructing the convolutional neural network
 - main: the main file to execute the process
+- model_evaluation: reading test data and evaluating the model
 
 ### Reference
 Codevilla, F., Müller, M., López, A., Koltun, V. and Dosovitskiy, A. 2018 End-to-end Driving via Conditional Imitation Learning, IEEE International Conference on Robotics and Automation (ICRA).
