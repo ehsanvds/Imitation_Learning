@@ -15,7 +15,7 @@ des_img_size = [88,200] # image size for feeding the model
 cat_columns = ['throttle_fl', 'brake_fl'] # name of categorical columns in measurements
 
 # Image preparation
-def augment(image):
+def image_prep(image):
     image = tf.image.convert_image_dtype(image, tf.float32)               # converting and scaling to [0,1]
     image = tf.image.resize(image, des_img_size, preserve_aspect_ratio=True,
                             method=tf.image.ResizeMethod.BILINEAR)        # resizing
@@ -36,7 +36,7 @@ files = filelist(image_dir, ext='.png')
 for k in files:
     img_string=tf.io.read_file(os.path.join(image_dir,k))
     image=tf.io.decode_image(img_string, channels=3)
-    augm_img = augment(image)
+    augm_img = image_prep(image)
     input_images.append(augm_img)
 
 # Reading measurements
